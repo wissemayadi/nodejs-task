@@ -50,7 +50,7 @@ exports.create = function (req, res) {
   };
 
 
-
+//get all goods 
  exports.getAll=(req, res) => {
  
     Goods.find()
@@ -58,47 +58,55 @@ exports.create = function (req, res) {
       .catch((err) => res.send(err));
   };
 
-  
- 
- 
-   
-      
-  
-
+  //filter by leave
   exports.filterByLeave=("/:leave",(req,res)=>{
-    
+       // passing leave in params
         let { leave } = req.params;
         
+        // searching leave in the database
         Goods.find({ leave })
           .then((goods) => res.send(goods))
           .catch((err) => res.send(err));
       });
   
 
+   exports.filter=((req,res)=>{
+
+
    
-     
-          // exports.filterByFields=("/",(req,res)=>{
-          //   const filtered={}
-          //   let query = req.query.company;
-          //       Object.keys(Goods).forEach((key)=>{
-          //           var good= Goods[key]
-          //           if(good==query){
-          //               filtered[key]=good
-          //           }
-          //       })
-          //     res.json(filtered)
-          //     });
-     
+   })
+        
+    
+
+    
         exports.filterByField = (req, res) => {   
             
-            const filterType = req.query.serialNumber;  
-            const filtered= req.query.company;
-            
-            Goods.find({serialNumber: filterType}, function(err, goods){     
-                if(err){       
-                    console.log(err)     
-                } else {       
-                    res.json(goods);     
-                }       
-            }) 
-        }; 
+          // const filterType = req.query.serialNumber;  
+          const filtered= req.query.company;
+          
+          Goods.find({company: filtered}, function(err, goods){     
+              if(err){       
+                  console.log(err)     
+              } else {       
+                  res.json(goods);     
+              }       
+          }) 
+      }; 
+     
+        
+        exports.getSerial = async (req, res) => {
+          try {
+            const serial = await Goods.findOne(req.params.serialNumber);
+        
+            res.status(200).json({
+              status: 'success',
+              data: { serial }
+            });
+          } catch (err) {
+            res.status(404).json({
+              status: 'fail',
+              message: err
+            });
+          }
+        };
+         

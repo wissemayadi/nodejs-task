@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+  app:
+    container_name: docker-node-mongo
+    restart: always
+    build: ./
+    command: nodemon  server.js
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./:/usr/usr/app   
+    depends_on:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./data:/data/db  

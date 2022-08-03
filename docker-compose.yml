@@ -4,7 +4,7 @@ services:
     container_name: docker-node-mongo
     restart: always
     build: ./
-    command: nodemon  server.js
+    command: nodemon  -L server.js
     ports:
       - '3000:3000'
     volumes:

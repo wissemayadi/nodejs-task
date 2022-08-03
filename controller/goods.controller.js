@@ -1,4 +1,5 @@
 const Goods=require("../model/goods")
+const querystring = require('querystring');
 
 
 
@@ -70,43 +71,18 @@ exports.create = function (req, res) {
       });
   
 
-   exports.filter=((req,res)=>{
-
-
-   
-   })
-        
+  
     
 
     
         exports.filterByField = (req, res) => {   
             
-          // const filterType = req.query.serialNumber;  
-          const filtered= req.query.company;
-          
-          Goods.find({company: filtered}, function(err, goods){     
-              if(err){       
-                  console.log(err)     
-              } else {       
-                  res.json(goods);     
-              }       
-          }) 
+        const {id,company,serialNumber,leave,description}=req.query
+       Goods.find(req.query).then((goods) => res.send(goods))
+       .catch((err) => res.send(err));
+       
       }; 
      
         
-        exports.getSerial = async (req, res) => {
-          try {
-            const serial = await Goods.findOne(req.params.serialNumber);
-        
-            res.status(200).json({
-              status: 'success',
-              data: { serial }
-            });
-          } catch (err) {
-            res.status(404).json({
-              status: 'fail',
-              message: err
-            });
-          }
-        };
+       
          

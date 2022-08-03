@@ -1,5 +1,6 @@
 const mongoose=require("mongoose");
-
+// mongodb://mongo:27017/docker-node-mongo
+// mongodb+srv://wissem:wissem@cluster0.moamn.mongodb.net/task2
 const connectDB = async () => {
     try {
         //connexion to container mongodb 

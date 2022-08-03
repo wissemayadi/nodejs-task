@@ -15,7 +15,7 @@ app.use(express.json());
 
 
 //api goods
-app.use("/",goods)
+app.use("/api",goods)
 
 //database connexion
 connectDB();

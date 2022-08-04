@@ -1,5 +1,4 @@
 const Goods=require("../model/goods")
-const querystring = require('querystring');
 
 
 
@@ -70,12 +69,8 @@ exports.create = function (req, res) {
           .catch((err) => res.send(err));
       });
   
-
-  
-    
-
-    
-        exports.filterByField = (req, res) => {   
+    //search by field 
+ exports.filterByField = (req, res) => {   
             
         const {id,company,serialNumber,leave,description}=req.query
        Goods.find(req.query).then((goods) => res.send(goods))
@@ -83,6 +78,82 @@ exports.create = function (req, res) {
        
       }; 
      
-        
+
+
+      //update goods
+  exports.updateGoods=(req,res,next)=>{
+        const id = req.params.id;
+        const updateObject = req.body;
+        Goods.findOneAndUpdate({ _id:id }, { $set:updateObject })
+          .exec()
+          .then(() => {
+            res.status(200).json({
+              success: true,
+              message: 'Goods is updated',
+              updateCause: updateObject,
+            });
+          })
+          .catch((err) => {
+            res.status(500).json({
+              success: false,
+              message: 'Server error. Please try again.'
+            });
+          });
+      }
+      
+  //delete one good
+  exports.deleteGood=(req, res)=> {
+        const id = req.params.id;
+        Goods.findByIdAndRemove(id)
+          .exec()
+          .then(()=> res.status(204).json({
+            success: true,
+          }))
+          .catch((err) => res.status(500).json({
+            success: false,
+          }));
+      }
+
        
+  // get one good by id 
+exports.getById=(req, res)=> {
+  const id = req.params.id;
+  Goods.findById(id)
+    .then((good) => {
+      res.status(200).json({
+        success: true,
+        message: `More on ${good.id}`,
+        Good: good,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: 'This good does not exist',
+        error: err.message,
+      });
+   });
+}
+  
+
+  // get all goods by company name
+  exports.getByCompany=(req, res)=> {
+    const company = req.params.company;
+    Goods.find({company})
+      .then((good) => {
+        res.status(200).json({
+          success: true,
+          message: 'this is your company',
+          Good: good,
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          success: false,
+          message: 'This good does not exist',
+          error: err.message,
+        });
+     });
+  }
+
          

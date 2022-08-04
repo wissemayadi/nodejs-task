@@ -1,0 +1,14 @@
+
+- hosts: localhost
+  tasks:
+    - name: update image and create a new container
+      command: docker-compose up -d --build
+
+ 
+
+
+#  if you have changing the code , you must update the docker image and restarting the container
+  
+# ansible can do this 
+
+# please run this command when you changed your code  :  "ansible-playbook compose.yaml"   

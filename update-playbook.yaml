@@ -1,0 +1,22 @@
+- hosts: localhost
+  tasks:
+    - name: stop container 
+      command: docker stop docker-node-mongo
+      ignore_errors: yes
+
+
+    - name: remove the  container 
+      command: docker rm docker-node-mongo
+      ignore_errors: yes
+
+    - name: remove the docker image
+      command: docker rmi -f task_app
+      ignore_errors: yes
+
+
+
+#  this playbook can be used if you want to stop and remove the container , and removing the docker images
+
+# you must install ansible  in your machine 
+
+# run the command : ansible-playbook update-playbook.yaml 

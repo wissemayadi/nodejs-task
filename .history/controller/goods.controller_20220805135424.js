@@ -90,7 +90,7 @@ exports.create = function (req, res) {
             res.status(200).json({
               success: true,
               message: 'Goods is updated',
-              updatedGood: updateObject,
+              update: updateObject,
             });
           })
           .catch((err) => {
@@ -122,7 +122,7 @@ exports.getById=(req, res)=> {
     .then((good) => {
       res.status(200).json({
         success: true,
-        message: `goood on ${good.id}`,
+        message: `More on ${good.id}`,
         Good: good,
       });
     })

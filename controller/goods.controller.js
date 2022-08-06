@@ -122,7 +122,7 @@ exports.getById=(req, res)=> {
     .then((good) => {
       res.status(200).json({
         success: true,
-        message: `More on ${good.id}`,
+        message: `Good on ${good.id}`,
         Good: good,
       });
     })
@@ -143,17 +143,21 @@ exports.getById=(req, res)=> {
       .then((good) => {
         res.status(200).json({
           success: true,
-          message: 'this is your company',
+          message: `all goods in company : ${company}`,
           Good: good,
         });
       })
       .catch((err) => {
         res.status(500).json({
           success: false,
-          message: 'This good does not exist',
+          message: `This good does not exist ${company}`,
           error: err.message,
         });
      });
   }
 
          
+
+
+
+

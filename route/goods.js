@@ -1,4 +1,6 @@
 const express = require("express");
+
+//controllers functions
 const { create,
         getAll, 
         filterByLeave,
@@ -6,7 +8,8 @@ const { create,
         updateGoods, 
         deleteGood,
         getByCompany,
-        getById} = require("../controller/goods.controller")
+        getById
+    } = require("../controller/goods.controller")
 
 
 const router = express.Router();

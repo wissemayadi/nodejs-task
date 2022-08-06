@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const user = require("../model/user");
 const goodsSchema= mongoose.Schema({
   
  
@@ -7,7 +7,11 @@ const goodsSchema= mongoose.Schema({
    company:{type:String},
    employee:{type:String},
    description:{type:String},
-   leave:{type:Number}
+   leave:{type:Number},
+   userId:[ {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users"
+    }]
 
   
 

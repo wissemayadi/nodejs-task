@@ -8,7 +8,8 @@ const { create,
         updateGoods, 
         deleteGood,
         getByCompany,
-        getById
+        getById,
+        registerByUser
     } = require("../controller/goods.controller")
 
 
@@ -22,6 +23,9 @@ const router = express.Router();
 router.post("/create",create)
 
 
+//create good by user
+//http://locahost:3000/api/goodByUser
+router.post("/goodByUser",registerByUser)
 
 
 //get all goods
@@ -63,6 +67,8 @@ router.get("/good/:id",getById)
 //locahost:3000/api/goods/:id
 
 router.get("/goods/:company",getByCompany)
+
+
 
 
 module.exports = router ; 

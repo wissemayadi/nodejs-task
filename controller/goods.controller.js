@@ -1,5 +1,5 @@
 const Goods=require("../model/goods")
-
+const User = require("../model/user")
 
 
 
@@ -12,7 +12,8 @@ exports.create = function (req, res) {
       !req.body.company ||
       !req.body.employee ||
       !req.body.description ||
-      !req.body.leave
+      !req.body.leave 
+       
     ) {
       return res.status(400).send({
         success: false,
@@ -26,7 +27,8 @@ exports.create = function (req, res) {
         company: req.body.company ,
         employee : req.body.employee ,
         description :req.body.description ,
-        leave:req.body.leave
+        leave:req.body.leave,
+        
       
     });
   
@@ -50,10 +52,33 @@ exports.create = function (req, res) {
   };
 
 
+  //register good assigned to a user
+
+  exports.registerByUser=async(req,res)=>{
+
+    try{
+      const user =await User.findById(req.body.userId)
+      const newGood=new Goods ({
+        serialNumber : req.body.serialNumber,
+        company: req.body.company ,
+        employee : req.body.employee ,
+        description :req.body.description ,
+        leave:req.body.leave,
+        userId:req.body.userId
+    
+      })
+      const good =await newGood.save();
+      res.json(good);
+    }catch(err){
+    console.log(err.message);
+    res.status(500).send("error to add");
+    }
+  }
+
 //get all goods 
  exports.getAll=(req, res) => {
  
-    Goods.find()
+    Goods.find().populate("userId")
       .then((goods) => res.send(goods))
       .catch((err) => res.send(err));
   };
@@ -157,7 +182,7 @@ exports.getById=(req, res)=> {
   }
 
          
-
+  
 
 
 

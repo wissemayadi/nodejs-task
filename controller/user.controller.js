@@ -1,5 +1,6 @@
 const User =require("../model/user")
 
+//controller functions 
 
 
 exports.createUser = function (req, res) {
@@ -21,7 +22,7 @@ exports.createUser = function (req, res) {
     let user = new User({
         username : req.body.username,
         email: req.body.email ,
-        password : req.body.password ,
+        password : req.body.password,
         
       
     });
@@ -43,4 +44,13 @@ exports.createUser = function (req, res) {
             err.message || "Some error occurred while creating the user.",
         });
       });
+  };
+
+
+  //get all goods 
+ exports.getAllUsers=(req, res) => {
+ 
+    User.find()
+      .then((goods) => res.send(goods))
+      .catch((err) => res.send(err));
   };

@@ -25,6 +25,7 @@ router.post("/create",create)
 
 //create good by user
 //http://locahost:3000/api/goodByUser
+
 router.post("/goodByUser",registerByUser)
 
 

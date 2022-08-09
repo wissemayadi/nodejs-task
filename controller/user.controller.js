@@ -47,10 +47,57 @@ exports.createUser = function (req, res) {
   };
 
 
-  //get all goods 
+  //get all users
  exports.getAllUsers=(req, res) => {
  
     User.find()
-      .then((goods) => res.send(goods))
+      .then((users) => res.send(users))
       .catch((err) => res.send(err));
   };
+
+
+//get user by id 
+
+exports.getUserById=(req, res)=> {
+  const id = req.params.id;
+  User.findById(id)
+    .then((user) => {
+      res.status(200).json({
+        success: true,
+        message: `user on ${user.id}`,
+        Users: user,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: 'This user does not exist',
+        error: err.message,
+      });
+   });
+}
+  
+//update user by id 
+
+exports.updateUser=(req,res,next)=>{
+  const id = req.params.id;
+  const updateObject = req.body;
+  User.findOneAndUpdate({ _id:id }, { $set:updateObject })
+    .exec()
+    .then(() => {
+      res.status(200).json({
+        success: true,
+        message: 'user updated successfully!!',
+        updatedUser: updateObject,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: 'Server error. Please try again.'
+      });
+    });
+}
+
+
+

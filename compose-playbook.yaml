@@ -2,7 +2,11 @@
 - hosts: localhost
   tasks:
     - name: update image and create a new container
-      command: docker-compose up -d --build
+      command: docker-compose up --force-recreate --build -d    
+
+    - name: delete the old image
+      command: docker image prune -f   
+    
 
  
 
@@ -12,3 +16,5 @@
 # ansible can do this 
 
 # please run this command when you changed your code  :  "ansible-playbook compose.yaml"   
+
+# docker-compose up -d --build 

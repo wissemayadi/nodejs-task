@@ -18,7 +18,7 @@ exports.createUser = function (req, res) {
       });
     }
   
-    // create a goods
+    // create a user
     let user = new User({
         username : req.body.username,
         email: req.body.email ,
@@ -27,7 +27,7 @@ exports.createUser = function (req, res) {
       
     });
   
-    // save goods in the database.
+    // save user in the database.
   user
       .save()
       .then((data) => {
